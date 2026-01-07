@@ -67,17 +67,7 @@ const Hero = () => {
         style={{ opacity }}
         className="relative z-10 container mx-auto px-6 text-center"
       >
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card/50 backdrop-blur-sm text-sm text-muted-foreground mb-8">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            Award-Winning Digital Agency
-          </span>
-        </motion.div>
-
+        
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -105,13 +95,11 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <Button variant="glow" size="xl" className="group">
-            Start Your Project
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </Button>
-          <Button variant="heroOutline" size="xl" className="group">
-            <Play className="w-5 h-5" />
-            Watch Showreel
+          <Button asChild variant="glow" size="xl" className="group">
+            <a href="#contact" aria-label="Start your project - contact us">
+              Start Your Project
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </a>
           </Button>
         </motion.div>
 

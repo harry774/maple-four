@@ -156,6 +156,8 @@
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
+    /* Allow pointer events to pass through so inner content (buttons/links) are clickable */
+    pointer-events: none;
   }
 
   .noise-overlay {

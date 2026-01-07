@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
 import { Button } from "./ui/button";
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone, X, Instagram } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -127,16 +127,27 @@ const Contact = () => {
               <div className="pt-8 border-t border-border">
                 <h4 className="font-display font-bold mb-4">Follow Us</h4>
                 <div className="flex gap-4">
-                  {["Twitter", "LinkedIn", "Dribbble", "Instagram"].map((social) => (
-                    <motion.a
-                      key={social}
-                      href="#"
-                      whileHover={{ y: -2 }}
-                      className="px-4 py-2 rounded-lg bg-card/50 border border-border hover:border-primary/50 text-sm text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      {social}
-                    </motion.a>
-                  ))}
+                  <motion.a
+                    href="https://x.com/yourhandle"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -2 }}
+                    className="w-11 h-11 rounded-lg bg-card/50 border border-border flex items-center justify-center hover:border-primary/50 text-muted-foreground hover:text-primary transition-colors"
+                    aria-label="Follow us on X (Twitter)"
+                  >
+                    <X className="w-5 h-5" />
+                  </motion.a>
+
+                  <motion.a
+                    href="https://instagram.com/maplefourdesign"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -2 }}
+                    className="w-11 h-11 rounded-lg bg-card/50 border border-border flex items-center justify-center hover:border-primary/50 text-muted-foreground hover:text-primary transition-colors"
+                    aria-label="Follow us on Instagram"
+                  >
+                    <Instagram className="w-5 h-5" />
+                  </motion.a>
                 </div>
               </div>
             </div>

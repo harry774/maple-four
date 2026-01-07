@@ -53,9 +53,11 @@ const Navbar = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
+          <a href="#contact" aria-label="Start your project - contact us">
           <Button variant="hero" size="lg">
             Get Started
           </Button>
+          </a>
         </div>
 
         {/* Mobile Menu Button */}

@@ -126,11 +126,13 @@ const Pricing = () => {
                 </ul>
 
                 <Button
-                  variant={plan.buttonVariant}
+                  asChild variant={plan.buttonVariant}
                   className="w-full group"
                 >
+                <a href="#contact" aria-label="contact us">
                   Get Started
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </a>
                 </Button>
               </motion.div>
             </ScrollReveal>
