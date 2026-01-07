@@ -30,8 +30,8 @@ const Navbar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "glass-card py-4" : "py-6"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-card md:backdrop-blur-none md:border-0 md:bg-transparent ${
+        isScrolled ? "py-4" : "py-6"
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
@@ -73,7 +73,7 @@ const Navbar = () => {
       <motion.div
         initial={false}
         animate={{ height: isMobileMenuOpen ? "auto" : 0 }}
-        className="md:hidden overflow-hidden"
+        className="md:hidden overflow-hidden bg-card/80 backdrop-blur-xl border-t border-border"
       >
         <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
           {navLinks.map((link) => (
@@ -81,13 +81,16 @@ const Navbar = () => {
               key={link.name}
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-muted-foreground hover:text-foreground transition-colors py-2"
+              className="block w-full text-muted-foreground hover:text-foreground transition-colors py-3 rounded-md"
             >
               {link.name}
             </a>
           ))}
-          <Button variant="hero" className="w-full">
-            Get Started
+
+          <Button asChild variant="hero" className="w-full">
+            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} aria-label="Start your project - contact us">
+              Get Started
+            </a>
           </Button>
         </div>
       </motion.div>

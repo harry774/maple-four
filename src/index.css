@@ -198,6 +198,13 @@
     animation: gradient-shift 8s ease infinite;
   }
 
+  /* Ensure anchor targets are visible below the fixed navbar on small screens */
+  @media (max-width: 767px) {
+    section {
+      scroll-margin-top: 5rem; /* matches mobile navbar height */
+    }
+  }
+
   @keyframes gradient-shift {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }

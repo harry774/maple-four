@@ -18,7 +18,7 @@ const Hero = () => {
   return (
     <section
       ref={ref}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden noise-overlay"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden noise-overlay pt-20 md:pt-0"
     >
       {/* Background Image with Parallax */}
       <motion.div
