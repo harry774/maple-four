@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import logo from "../assets/site-logo.png";
 import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
@@ -25,12 +25,35 @@ const Navbar = () => {
     { name: "Contact", href: "#contact" },
   ];
 
+  const handleMobileNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    // close the mobile menu first to allow collapse animation
+    setIsMobileMenuOpen(false);
+
+    const targetId = href.startsWith("#") ? href.slice(1) : href;
+
+    // wait for collapse animation/layout to settle, then scroll
+    setTimeout(() => {
+      if (!targetId) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        // fallback to setting location hash
+        location.hash = href;
+      }
+    }, 220);
+  };
+
   return (
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-card md:backdrop-blur-none md:border-0 md:bg-transparent ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-card ${
         isScrolled ? "py-4" : "py-6"
       }`}
     >
@@ -73,14 +96,14 @@ const Navbar = () => {
       <motion.div
         initial={false}
         animate={{ height: isMobileMenuOpen ? "auto" : 0 }}
-        className="md:hidden overflow-hidden bg-card/80 backdrop-blur-xl border-t border-border"
+        className="md:hidden overflow-hidden bg-card"
       >
         <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={(e) => handleMobileNavClick(e, link.href)}
               className="block w-full text-muted-foreground hover:text-foreground transition-colors py-3 rounded-md"
             >
               {link.name}
@@ -88,7 +111,7 @@ const Navbar = () => {
           ))}
 
           <Button asChild variant="hero" className="w-full">
-            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} aria-label="Start your project - contact us">
+            <a href="#contact" onClick={(e) => handleMobileNavClick(e, "#contact")} aria-label="Start your project - contact us">
               Get Started
             </a>
           </Button>
