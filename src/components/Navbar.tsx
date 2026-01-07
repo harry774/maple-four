@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import logo from "../assets/site-logo.png";
 import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
 
@@ -16,6 +17,7 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
+    { name: "Home", href: "#" },
     { name: "Services", href: "#services" },
     { name: "Pricing", href: "#pricing" },
     { name: "Work", href: "#work" },
@@ -33,13 +35,12 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-[hsl(260,100%,65%)] flex items-center justify-center">
-            <span className="text-primary-foreground font-display font-bold text-lg">M4</span>
-          </div>
-          <span className="font-display font-semibold text-xl text-foreground">Maple Four</span>
+        <a href="#" className="flex items-center gap-3">
+          <img src={logo} alt="Maple Four Logo" className="h-10 w-auto object-contain" />
+          <span className="font-display font-bold uppercase brand-gold text-sm md:text-base tracking-wide">
+            MAPLE FOUR DESIGN
+          </span>
         </a>
-
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (

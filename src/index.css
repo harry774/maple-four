@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 /* Maple Four Design - Bold Digital Agency Design System */
 
@@ -44,6 +44,8 @@
     --glow: 185 100% 50%;
     --gradient-start: 185 100% 50%;
     --gradient-end: 260 100% 65%;
+    /* Brand gold for logo/accent text */
+    --brand-gold: 45 95% 50%;
     
     /* Sidebar */
     --sidebar-background: 220 18% 6%;
@@ -118,6 +120,11 @@
 
   .glow-text {
     text-shadow: 0 0 40px hsl(var(--glow) / 0.5);
+  }
+
+  /* Brand color utility */
+  .brand-gold {
+    color: hsl(var(--brand-gold));
   }
 
   .glass-card {
