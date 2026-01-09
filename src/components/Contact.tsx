@@ -29,6 +29,11 @@ const Contact = () => {
     }
     setLoading(true);
     try {
+      console.log("EmailJS ENV", {
+        SERVICE_ID,
+        TEMPLATE_ID,
+        PUBLIC_KEY,
+      });
       await emailjs.send(
         SERVICE_ID,
         TEMPLATE_ID,
