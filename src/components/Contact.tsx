@@ -1,9 +1,50 @@
 import { motion } from "framer-motion";
+import { useState, type FormEvent } from "react";
+import emailjs from "@emailjs/browser";
 import ScrollReveal from "./ScrollReveal";
 import { Button } from "./ui/button";
 import { ArrowRight, Mail, MapPin, Phone, X, Instagram } from "lucide-react";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "your_service_id";
+  const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "your_template_id";
+  const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "your_public_key";
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+    if (!formData.name || !formData.email || !formData.message) {
+      setError("Please fill in the required fields.");
+      return;
+    }
+    setLoading(true);
+    try {
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        { name: formData.name, email: formData.email, phone: formData.phone, message: formData.message },
+        PUBLIC_KEY,
+      );
+      setSuccess(true);
+      setFormData({ name: "", email: "", phone: "", message: "" });
+    } catch (err) {
+      console.error("EmailJS error", err);
+      setError("Something went wrong, please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-32 relative overflow-hidden">
       {/* Background */}
@@ -32,46 +73,70 @@ const Contact = () => {
           <ScrollReveal direction="left">
             <div className="glass-card rounded-2xl p-8 gradient-border">
               <h3 className="font-display text-2xl font-bold mb-6">Send Us a Message</h3>
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
+
+              {success ? (
+                <div role="status" aria-live="polite" className="p-6 bg-card/50 rounded-md text-center">
+                  <p className="font-medium">Thank you for contacting, we will get in touch with you shortly</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Name</label>
+                      <input
+                        name="from_name"
+                        value={formData.name}
+                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                        type="text"
+                        className="w-full px-4 py-3 rounded-lg bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+                        placeholder="John Doe"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Email</label>
+                      <input
+                        name="reply_to"
+                        value={formData.email}
+                        onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                        type="email"
+                        className="w-full px-4 py-3 rounded-lg bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+                        placeholder="john@example.com"
+                        required
+                      />
+                    </div>
+                  </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Name</label>
+                    <label className="block text-sm font-medium mb-2">Phone Number</label>
                     <input
-                      type="text"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                      type="tel"
                       className="w-full px-4 py-3 rounded-lg bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
-                      placeholder="John Doe"
+                      placeholder="+1 (555) 123-4567"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Email</label>
-                    <input
-                      type="email"
-                      className="w-full px-4 py-3 rounded-lg bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
-                      placeholder="john@example.com"
+                    <label className="block text-sm font-medium mb-2">Message</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                      rows={4}
+                      className="w-full px-4 py-3 rounded-lg bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors resize-none"
+                      placeholder="Tell us about your project..."
+                      required
                     />
                   </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Subject</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-3 rounded-lg bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
-                    placeholder="Project Inquiry"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Message</label>
-                  <textarea
-                    rows={4}
-                    className="w-full px-4 py-3 rounded-lg bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors resize-none"
-                    placeholder="Tell us about your project..."
-                  />
-                </div>
-                <Button variant="glow" size="xl" className="w-full group">
-                  Send Message
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </form>
+                  <Button variant="glow" size="xl" className="w-full group" disabled={loading}>
+                    {loading ? "Sending..." : "Send Message"}
+                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  </Button>
+
+                  {error && <div className="text-destructive text-sm">{error}</div>}
+                </form>
+              )}
             </div>
           </ScrollReveal>
 
