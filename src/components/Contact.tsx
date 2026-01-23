@@ -154,19 +154,19 @@ const Contact = () => {
                   {
                     icon: Mail,
                     label: "Email",
-                    value: "hello@maplefour.design",
-                    href: "mailto:hello@maplefour.design",
+                    value: "info@maplefourdesign.ca",
+                    href: "mailto:info@maplefourdesign.ca",
                   },
                   {
                     icon: Phone,
                     label: "Phone",
-                    value: "+1 (555) 123-4567",
-                    href: "tel:+15551234567",
+                    value: "+1 (437) 374-1906",
+                    href: "tel:+14373741906",
                   },
                   {
                     icon: MapPin,
                     label: "Office",
-                    value: "123 Creative Street, Design District",
+                    value: "Toronto, Canada",
                     href: "#",
                   },
                 ].map((item) => (
@@ -193,7 +193,7 @@ const Contact = () => {
                 <h4 className="font-display font-bold mb-4">Follow Us</h4>
                 <div className="flex gap-4">
                   <motion.a
-                    href="https://x.com/yourhandle"
+                    href="https://x.com/maplefourdesign"
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ y: -2 }}
