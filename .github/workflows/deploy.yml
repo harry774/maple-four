@@ -30,5 +30,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist/
-          server-dir: ../domains/maplefourdesign.ca/public_html/
+          server-dir: maplefourdesign.ca/
           log-level: verbose
